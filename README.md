@@ -1,4 +1,4 @@
-# 🚀 Basic CI/CD Pipeline
+.# 🚀 Basic CI/CD Pipeline
 
 Pipeline básico para deploy automático de uma aplicação **Java (WAR)** em um servidor **Apache Tomcat** rodando na **AWS ECS**.
 
