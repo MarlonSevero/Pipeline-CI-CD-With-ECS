@@ -1,0 +1,6 @@
+FROM postgres:16
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=123456
+ENV POSTGRES_DB=FIAP
+EXPOSE 5432
+COPY ./scriptPostgreSQL.sql /docker-entrypoint-initdb.d/
