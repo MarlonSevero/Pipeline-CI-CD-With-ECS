@@ -1,4 +1,4 @@
-name: Build and Push Docker Image Image Java APP
+name: Build and Push Docker Image Java DB
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build image
-        run: docker build -f Dockerfilejavapp -t marlonsevero/javapp:${{ steps.version.outputs.VERSION }} .
+        run: docker build -f Dockerfiledb -t marlonsevero/javaapp-db:${{ steps.version.outputs.VERSION }} .
 
       - name: Push image to registry
-        run: docker push marlonsevero/javapp:${{ steps.version.outputs.VERSION }}
+        run: docker push marlonsevero/javaapp-db:${{ steps.version.outputs.VERSION }}
