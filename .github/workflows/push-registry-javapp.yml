@@ -28,5 +28,5 @@ jobs:
       - name: Build image
         run: docker build -f Dockerfilejavapp -t marlonsevero/javapp:${{ steps.version.outputs.VERSION }} .
 
-      - name: Push image
+      - name: Push image to registry
         run: docker push marlonsevero/javapp:${{ steps.version.outputs.VERSION }}
