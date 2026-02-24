@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-    private static final String URL = "jdbc:postgresql://javaapp-db:5432/FIAP";
+    private static final String URL = "jdbc:postgresql://javaapp-db.private-dns-names:5432/FIAP";
     private static final String USER = "postgres";
     private static final String PASSWORD = "123456";
-    
 
+    
     public static Connection getConnection() throws SQLException {
         try {
             Class.forName("org.postgresql.Driver"); // Driver JDBC do PostgreSQL
