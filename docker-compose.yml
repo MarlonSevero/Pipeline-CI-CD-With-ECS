@@ -1,0 +1,50 @@
+services:
+  javadb:
+    build:
+      context: .
+      dockerfile: Dockerfiledb
+    container_name: javadb
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=appdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+    networks:
+      - marlonsevero_vpc_docker
+    ports:
+      - "5432:5432"
+
+  javapp:
+    build:
+      context: .
+      dockerfile: Dockerfilejavapp
+    container_name: javapp
+    depends_on:
+      - javadb
+    volumes:
+      - app_data:/app/data
+    environment:
+      - DB_HOST=javadb
+      - DB_PORT=5432
+      - DB_NAME=FIAP
+      - DB_USER=postgres
+      - DB_PASSWORD=123456
+    networks:
+      - marlonsevero_vpc_docker
+    ports:
+      - "5555:8080"
+
+volumes:
+  db_data:
+  app_data:
+
+networks:
+  marlonsevero_vpc_docker:
+    name: vpc_docker
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.1.0/24
+          gateway: 10.0.1.1
