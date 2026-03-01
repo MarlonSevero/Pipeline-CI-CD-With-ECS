@@ -1,50 +1,82 @@
 services:
   javadb:
+    image: marlonsevero/java-db
     build:
       context: .
       dockerfile: Dockerfiledb
-    container_name: javadb
+    container_name: java-db
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=appdb
+      - POSTGRES_DB=FIAP
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123456
     networks:
-      - marlonsevero_vpc_docker
+      - vpc_docker
     ports:
       - "5432:5432"
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfilenginx
+    container_name: nginx
+    image: marlonsevero/nginx-load-balancer
+    depends_on:
+      - javapp-1
+      - javapp-2
+      - javapp-3
+    networks:
+      - vpc_docker
+    ports:
+      - "80:80"
 
-  javapp:
+  javapp-1:
     build:
       context: .
       dockerfile: Dockerfilejavapp
-    container_name: javapp
+    container_name: javapp-1
+    image: marlonsevero/java-app
     depends_on:
       - javadb
     volumes:
       - app_data:/app/data
-    environment:
-      - DB_HOST=javadb
-      - DB_PORT=5432
-      - DB_NAME=FIAP
-      - DB_USER=postgres
-      - DB_PASSWORD=123456
     networks:
-      - marlonsevero_vpc_docker
+      - vpc_docker
     ports:
-      - "5555:8080"
+      - "8080"
+
+  javapp-2:
+    image: marlonsevero/java-app
+    container_name: javapp-2
+    depends_on:
+      - javadb
+    volumes:
+      - app_data:/app/data
+    networks:
+      - vpc_docker
+    ports:
+      - "8080"
+  javapp-3:
+    image: marlonsevero/java-app
+    container_name: javapp-3
+    depends_on:
+      - javadb
+    volumes:
+      - app_data:/app/data
+    networks:
+      - vpc_docker
+    ports:
+      - "8080"
 
 volumes:
   db_data:
   app_data:
 
 networks:
-  marlonsevero_vpc_docker:
-    name: vpc_docker
+  vpc_docker:
     driver: bridge
     ipam:
-      driver: default
       config:
         - subnet: 10.0.1.0/24
           gateway: 10.0.1.1
+
