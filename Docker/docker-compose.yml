@@ -2,7 +2,7 @@ services:
   javadb:
     image: marlonsevero/java-db
     build:
-      context: .
+      context: ./Docker
       dockerfile: Dockerfiledb
     container_name: java-db
     volumes:
@@ -17,7 +17,7 @@ services:
       - "5432:5432"
   nginx:
     build:
-      context: .
+      context: ./Docker
       dockerfile: Dockerfilenginx
     container_name: nginx
     image: marlonsevero/nginx-load-balancer
@@ -32,7 +32,7 @@ services:
 
   javapp-1:
     build:
-      context: .
+      context: ./Docker
       dockerfile: Dockerfilejavapp
     container_name: javapp-1
     image: marlonsevero/java-app

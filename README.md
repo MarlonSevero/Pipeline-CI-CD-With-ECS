@@ -14,7 +14,7 @@ Este projeto demonstra uma estrutura simples e funcional de CI/CD utilizando **G
 * **Java 17+**
 * **Maven**
 * **Docker image Apache Tomcat 9+**
-* **AWS ECS (Elastic Container Service)**
+* **AWS EKS (Elastic Kubernetes Service)**
 * **GitHub Actions**
 
 ---
@@ -27,22 +27,32 @@ Sempre que houver um push na branch **main**, o GitHub Actions:
 2. Compila o projeto com Maven
 3. Gera o WAR em `target/`
 4. Atualiza a imagem no registry**
-5. Substitui a imagem em producao no ECS
-
+4. Utiliza o terraform para provisionar em EKS da AWS**
+5. Substitui a imagem em producao no EKS
+6. Faz os testes com Argo
 ---
 
 ## 🔐 Secrets necessários no GitHub
 
 Crie os seguintes secrets em **Settings → Secrets → Actions**:
 
-| Secret               | Descrição                                     |
-| ---------------------| --------------------------------------------- |
-| `ECS_HOST`           | IP público da instância                       |
-| `ECS_USER`           | Usuário SSH (ex.: `ec2-user`)                 |
-| `DOCKER_PASSWORD`    | Usuário SSH (ex.: `ec2-user`)                 |
-| `DOCKER_USERNAME`    | Usuário SSH (ex.: `ec2-user`)                 |
+| Secret                  | Descrição        |
+| ------------------------| -----------------|
+| `DOCKERHUB_USER`        | Dockerhub User                  |
+| `DOCKERHUB_PASSWORD`    | Dockerhub Pawd                  |
+
 
 ---
 
-## 📘 Tutorial Completo (Notion)
+🎯 Resultado Terraform
+
+Você terá:
+
+Cluster ECS
+
+Container rodando em Fargate
+
+Escalável
+
+Sem precisar gerenciar EC2
 ---
