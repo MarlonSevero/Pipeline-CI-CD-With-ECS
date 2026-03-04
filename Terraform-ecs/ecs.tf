@@ -29,16 +29,23 @@ resource "aws_ecs_task_definition" "javapp" {
   cpu                      = "256"
   memory                   = "512"
   execution_role_arn       = aws_iam_role.ecs_task_execution.arn
+  task_role_arn            = aws_iam_role.ecs_task_execution.arn              
+
+    
+  runtime_platform {
+    operating_system_family = "LINUX"
+    cpu_architecture        = "X86_64"
+  }
 
   container_definitions = jsonencode([
     {
       name      = "javapp"
-      image     = "marlonsevero/javapp:latest"
+      image     = "marlonsevero/javapp:1.0.0"
       essential = true
       portMappings = [
             {
                 containerPort = 8080
-                protocol = "tcp"
+                //protocol = TCP
                 }
             ]
         }
@@ -51,10 +58,16 @@ resource "aws_ecs_service" "javapp" {
   task_definition = aws_ecs_task_definition.javapp.arn
   launch_type     = "FARGATE"
   desired_count   = 1
+  enable_execute_command = true
 
   network_configuration {
-    subnets         = [aws_subnet.javapp_subnet.id ]
-    assign_public_ip = true
+    subnets         = [
+      //data.aws_subnet.main-private-subnet-1a.id,
+      //data.aws_subnet.main-private-subnet-1b.id,
+      data.aws_subnet.main-public-subnet-1a.id,
+      data.aws_subnet.main-public-subnet-1b.id
+    ]
+      assign_public_ip = true
   }
 }
 
