@@ -34,3 +34,7 @@ data "aws_subnet" "main-public-subnet-1b" {
   id = "subnet-0a5c7cd75c1f390df"
 }
 
+#SECURITY GROUP
+data "aws_security_group" "sg_http" {
+  id = "sg-0586de0a74dda0d1b"
+}
