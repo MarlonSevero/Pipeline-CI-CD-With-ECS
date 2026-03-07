@@ -1,4 +1,3 @@
-
 #VPC
 data "aws_vpc" "main-project-vpc" {
   id = "vpc-00329cf3b203567eb"
@@ -24,4 +23,10 @@ data "aws_subnet" "main-public-subnet-1b" {
 #SECURITY GROUP
 data "aws_security_group" "sg_http" {
   id = "sg-0586de0a74dda0d1b"
+}
+
+#CLOUD MAP API calls and DNS queries in VPCs
+data "aws_service_discovery_dns_namespace" "cloud_map" {
+  type = "DNS_PRIVATE"
+  name = "severo.online"
 }

@@ -49,3 +49,7 @@ terraform.rc
 
 # Plan files
 *.tfplan
+
+#Next Steps 
+next_steps.txt
+
