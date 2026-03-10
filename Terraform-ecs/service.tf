@@ -30,5 +30,6 @@ resource "aws_ecs_service" "javadb" {
       data.aws_subnet.main-public-subnet-1b.id
     ]
       security_groups  = [data.aws_security_group.sg_http.id]
+      assign_public_ip = true
   }
 }

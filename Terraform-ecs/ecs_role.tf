@@ -58,7 +58,9 @@ resource "aws_iam_policy" "rds_access_policy" {
           "rds:DescribeOrderableDBInstanceOptions",
           "rds:DescribeReservedDBInstances",
           "rds:DescribeSourceRegions",
-          "secretsmanager:GetSecretValue"
+          "secretsmanager:GetSecretValue",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
         ]
         Resource = "*"
       }
