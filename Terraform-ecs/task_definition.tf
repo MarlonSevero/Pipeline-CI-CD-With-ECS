@@ -16,7 +16,7 @@ resource "aws_ecs_task_definition" "javapp" {
   container_definitions = jsonencode([
     {
       name      = "javapp"
-      image     = "marlonsevero/java-app:v1.0.1"
+      image     = "marlonsevero/java-app:v2.0.0"
       essential = true
       portMappings = [
             {
@@ -54,7 +54,7 @@ resource "aws_ecs_task_definition" "javadb" {
   container_definitions = jsonencode([
     {
       name      = "javadb"
-      image     = "marlonsevero/java-db:v1.0.1"
+      image     = "marlonsevero/java-db:v2.0.0"
       essential = true
       portMappings = [
             {
