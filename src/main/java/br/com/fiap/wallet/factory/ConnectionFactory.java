@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-    private static final String URL = "jdbc:postgresql://java-db:5432/FIAP";
+    private static final String URL = "jdbc:postgresql://javadb.severo.local:5432/FIAP";
     private static final String USER = "postgres";
     private static final String PASSWORD = "123456";
 

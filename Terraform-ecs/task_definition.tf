@@ -5,7 +5,7 @@ resource "aws_ecs_task_definition" "javapp" {
   cpu                      = "512"
   memory                   = "1024"
   execution_role_arn       = aws_iam_role.ecs_task_execution.arn
-  task_role_arn            = aws_iam_role.ecs_task_execution.arn              
+  task_role_arn            = aws_iam_role.ecs_task_role.arn
 
     
   runtime_platform {
@@ -30,8 +30,8 @@ resource "aws_ecs_task_definition" "javapp" {
           awslogs-region        = "us-east-1"
           awslogs-stream-prefix = "ecs_app"
           }
-        }  
-      } 
+        }
+      }
   ])
 }
 
@@ -43,8 +43,8 @@ resource "aws_ecs_task_definition" "javadb" {
   cpu                      = "512"
   memory                   = "1024"
   execution_role_arn       = aws_iam_role.ecs_task_execution.arn
-  task_role_arn            = aws_iam_role.ecs_task_execution.arn
-  depends_on = [aws_cloudwatch_log_group.ecs_db]
+  task_role_arn            = aws_iam_role.ecs_task_role.arn
+  depends_on               = [aws_cloudwatch_log_group.ecs_db]
     
   runtime_platform {
     operating_system_family = "LINUX"

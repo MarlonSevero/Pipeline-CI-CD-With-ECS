@@ -1,5 +1,3 @@
-.# 🚀 Basic CI/CD Pipeline
-
 Este projeto contém diversas tarefas automatizadas que ajudam no ciclo de vida e operação da aplicação Java:
 
 ### 1. **Build da Aplicação**
